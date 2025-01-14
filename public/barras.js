@@ -1,4 +1,4 @@
-const socket = io(); // Conecta ao servidor Socket.IO
+const socket = io();
 
 const numBars = 6;
 const overallBar = document.getElementById('overall-bar').firstElementChild;
@@ -9,7 +9,7 @@ window.onload = () => {
     const controlButtons = document.querySelectorAll('.control');
     controlButtons.forEach(button => {
         button.disabled = true;
-        button.classList.add('disabled'); // Adiciona a classe disabled para estilização
+        button.classList.add('disabled'); 
     });
 }
 
@@ -17,7 +17,6 @@ function login() {
     const username = prompt("Digite o seu nome de usuário:");
     const password = prompt("Digite a sua senha:");
 
-    // Lista de usuários e senhas
     const users = {
         "Alma": "emopt",
         "Lucas": "mteop",
@@ -34,11 +33,10 @@ function login() {
         const controlButtons = document.querySelectorAll('.control');
         controlButtons.forEach(button => {
             button.disabled = true;
-            button.classList.add('disabled'); // Adicionar a classe disabled
+            button.classList.add('disabled'); 
         });
 
         if (username === "Pera") {
-            // Tornar visíveis os botões inv para o Pera
             const invButtons = document.querySelectorAll('.inv');
             invButtons.forEach(button => button.style.visibility = 'visible');
             const userButtons = document.querySelectorAll(`.control`);
@@ -51,7 +49,7 @@ function login() {
             const userButtons = document.querySelectorAll(`.grid-item[data-user="${username}"] .control`);
             userButtons.forEach(button => {
                 button.disabled = false;
-                button.classList.remove('disabled'); // Remover a classe disabled
+                button.classList.remove('disabled');
             });
         }
     }
@@ -64,11 +62,10 @@ function updateInd(change) {
     
     // Limitar entre 0 e 100 e arredondar se próximo
     currentWidth = Math.min(100, Math.max(0, currentWidth));
-    if (Math.abs(currentWidth - 100) < 0.5) currentWidth = 100; // Arredonda para 100 se próximo
-    if (Math.abs(currentWidth) < 0.5) currentWidth = 0;         // Arredonda para 0 se próximo
+    if (Math.abs(currentWidth - 100) < 0.5) currentWidth = 100; 
+    if (Math.abs(currentWidth) < 0.5) currentWidth = 0; 
     
     overallBar.style.width = `${currentWidth}%`;
-    // Enviar a atualização da barra geral para o servidor
     socket.emit('updateProgress', { id: 'overall', width: currentWidth });
 }
 
@@ -81,8 +78,6 @@ function updateProgress(id, change) {
         (change < 0 && individualWidth < parseFloat(bar.style.width) || 0)) {
         bar.style.width = `${individualWidth}%`;
         updateOverall(change > 0 ? 3.33 : -3.33);
-
-        // Enviar a atualização para o servidor
         socket.emit('updateProgress', { id: id, width: individualWidth });
     }
 }
@@ -93,11 +88,10 @@ function updateOverall(change) {
     
     // Limitar entre 0 e 100 e arredondar se próximo
     currentWidth = Math.min(100, Math.max(0, currentWidth));
-    if (Math.abs(currentWidth - 100) < 0.5) currentWidth = 100; // Arredonda para 100 se próximo
-    if (Math.abs(currentWidth) < 0.5) currentWidth = 0;         // Arredonda para 0 se próximo
+    if (Math.abs(currentWidth - 100) < 0.5) currentWidth = 100; 
+    if (Math.abs(currentWidth) < 0.5) currentWidth = 0;    
     
     overallBar.style.width = `${currentWidth}%`;
-    // Enviar a atualização para o servidor
     socket.emit('updateProgress', { id: 'overall', width: currentWidth });
 }
 
@@ -110,7 +104,7 @@ function addWarning(name) {
 
 function addCall(name) {
     const div = document.createElement('div');
-    div.textContent = `${name} está sendo chamado.`;
+    div.textContent = `${name} está sendo chamado ao RH.`;
     calls.appendChild(div);
 }
 

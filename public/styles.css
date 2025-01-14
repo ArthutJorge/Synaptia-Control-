@@ -35,7 +35,6 @@ body{
     font-weight:900;
 }
 
-/* Barra Inferior */
 .taskbar {
     position: absolute;
     bottom: 0;
@@ -60,8 +59,6 @@ body{
     height: 30px;
 }
 
-/* Janela */
-/* Estilo original da janela */
 .window {
     transition: all 0.3s ease-in-out;
     width: 800px;
@@ -76,14 +73,13 @@ body{
     transform: translate(-50%, -50%);
 }
 
-/* Estilo da janela maximizada */
 .window.maximized {
     width: 100%;
     height: 97%;
     position: absolute;
     top: 0;
     left: 0;
-    transform: unset; /* Remove o efeito de centralização quando maximizada */
+    transform: unset; 
 }
 
 
@@ -143,13 +139,13 @@ body{
     color: white;
     padding: 10px;
     margin-bottom: 20px;
-    justify-content: flex-start; /* Alinha os itens à esquerda */
+    justify-content: flex-start; 
 }
 
 .menu-bar div {
     cursor: pointer;
     font-weight: bold;
-    padding: 0px 30px; /* Adiciona um espaçamento entre os itens */
+    padding: 0px 30px; 
 }
 
 #sep{
@@ -228,7 +224,7 @@ body{
 }
 
 button.disabled {
-    pointer-events: none; /* Impede a interação com o botão */
-    opacity: 0.5; /* Torna o botão visualmente desabilitado */
-    background-color: rgb(128, 128, 128); /* Cor de fundo cinza */
+    pointer-events: none; 
+    opacity: 0.5; 
+    background-color: rgb(128, 128, 128);
 }
