@@ -6,17 +6,30 @@ body{
 
 .desktop {
     display: flex;
-    padding: 20px;
+    padding: 10px;
     height: 100vh;
-    background-color: #0078d4;
+    background: linear-gradient(to right, #0078d4 0%, #005a9e 100%);
 }
 
 .icon {
+    transition: 0.05s all ease-in-out;
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
     text-align: center;
+    height: 75px;
+    padding: 5px;
+    margin: 5px 0px 0px 5px;
+}
+
+.icon:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+.focused {
+    border: 1px dashed white !important;
 }
 
 .icon img {
@@ -39,24 +52,27 @@ body{
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 3%;
+    height: calc(5% + 10px);
     width: 100%;
     background-color: #1b611a;
     display: flex;
     justify-content: flex-start;
-    padding: 10px;
     z-index: 10;
 }
 
 .taskbar-icon {
     display: none;
-    margin-right: 10px;
     cursor: pointer;
+    aspect-ratio: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    margin: 5px;
 }
 
 .taskbar-icon img {
-    width: 30px;
-    height: 30px;
+    width: 80%;
 }
 
 .window {

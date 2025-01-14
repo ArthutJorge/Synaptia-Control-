@@ -12,7 +12,7 @@
 <body>
     <!-- Área de Trabalho -->
     <div class="desktop">
-        <div class="icon" onclick="openWindow()">
+        <div class="icon" title="Controle de tarefas" onclick="openWindow();handleIconClick()">
             <img src="Synaptia.png" alt="Synaptia Icon" />
             <span>Synaptia Control</span>
         </div>
@@ -155,27 +155,25 @@
         let windowOpen = false;
         let windowMaximized = false;
 
+        function toggleWindow(){
+            if(windowOpen){
+                minimizeWindow()
+            } else{
+                openWindow()
+            }
+        }
         // Abre a janela
         function openWindow() {
             document.getElementById("window").style.display = "flex";
-            document.getElementById("taskbar-icon").style.display = "block";
+            document.getElementById("taskbar-icon").style.display = "flex";
+            document.querySelector(".taskbar-icon").style.backgroundColor = "rgba(255, 255, 255, 0.2)"; 
             windowOpen = true;
-        }
-
-        // Alterna a janela (minimizar/abrir)
-        function toggleWindow() {
-            if (windowOpen) {
-                document.getElementById("window").style.display = "flex";
-                windowOpen = false;
-            } else {
-                document.getElementById("window").style.display = "none";
-                windowOpen = true;
-            }
         }
 
         // Minimizar a janela
         function minimizeWindow() {
             document.getElementById("window").style.display = "none";
+            document.querySelector(".taskbar-icon").style.backgroundColor = "transparent"; 
             windowOpen = false;
         }
 
@@ -197,6 +195,18 @@
             document.getElementById("window").style.display = "none";
             document.getElementById("taskbar-icon").style.display = "none";
             windowOpen = false;
+        }
+
+        function handleIconClick() {
+            const Icon = document.querySelector(".icon");
+            Icon.classList.add("focused");
+            event.stopPropagation();
+            // Remove a borda ao clicar em qualquer outro lugar
+            document.addEventListener("click", (event) => {
+                if (!Icon.contains(event.target)) {
+                    Icon.classList.remove("focused");
+                }
+            }, { once: true });
         }
     </script>
 </body>
