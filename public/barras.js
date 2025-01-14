@@ -41,6 +41,11 @@ function login() {
             // Tornar visíveis os botões inv para o Pera
             const invButtons = document.querySelectorAll('.inv');
             invButtons.forEach(button => button.style.visibility = 'visible');
+            const userButtons = document.querySelectorAll(`.control`);
+            userButtons.forEach(button => {
+                button.disabled = false;
+                button.classList.remove('disabled'); 
+            });
         } else {
             // Habilitar os botões do usuário específico
             const userButtons = document.querySelectorAll(`.grid-item[data-user="${username}"] .control`);
