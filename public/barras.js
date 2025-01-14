@@ -57,6 +57,13 @@ function login() {
     }
 }
 
+function limpar(){
+    calls.textContent = 'Advertências:'
+    warnings.textContent = 'Chamados:'
+
+    socket.emit('limparDados');
+}
+
 
 // Função para atualizar a barra geral
 function updateInd(change) {
@@ -99,16 +106,24 @@ function updateOverall(change) {
 
 // Funções para adicionar mensagens de advertência e chamados
 function addWarning(name) {
-    const div = document.createElement('div');
-    div.textContent = `${name} está sendo advertido.`;
-    warnings.appendChild(div);
+    socket.emit('addWarning', { name, message: `${name} está sendo advertido.` });
 }
 
 function addCall(name) {
-    const div = document.createElement('div');
-    div.textContent = `${name} está sendo chamado ao RH.`;
-    calls.appendChild(div);
+    socket.emit('addCall', { name, message: `${name} está sendo chamado ao RH.` });
 }
+
+socket.on('addWarning', (data) => {
+    const div = document.createElement('div');
+    div.textContent = data.message;
+    warnings.appendChild(div);
+});
+
+socket.on('addCall', (data) => {
+    const div = document.createElement('div');
+    div.textContent = data.message;
+    calls.appendChild(div);
+});
 
 // Ouvir eventos de atualização de progresso enviados pelo servidor
 socket.on('progressUpdated', (data) => {
@@ -127,4 +142,9 @@ socket.on('initialState', (data) => {
         const bar = document.getElementById(`bar-${id}`).firstElementChild;
         bar.style.width = `${data.bars[id]}%`;
     }
+});
+
+socket.on('limparDados', () => {
+    calls.textContent = 'Advertências:';
+    warnings.textContent = 'Chamados:';
 });

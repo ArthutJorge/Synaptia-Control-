@@ -37,6 +37,18 @@ io.on('connection', (socket) => {
         io.emit('progressUpdated', data);
     });
 
+    socket.on('limparDados', () => {
+        io.emit('limparDados');
+    });
+
+    socket.on('addWarning', (data) => {
+        io.emit('addWarning', data); 
+    });
+
+    socket.on('addCall', (data) => {
+        io.emit('addCall', data);
+    });
+
     socket.on('disconnect', () => {
         console.log('Cliente desconectado');
     });
