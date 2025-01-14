@@ -38,7 +38,7 @@ function login() {
 
         if (username === "Pera") {
             const invButtons = document.querySelectorAll('.inv');
-            invButtons.forEach(button => button.style.visibility = 'visible');
+            invButtons.forEach(button => button.style.display = 'inline-block');
             const userButtons = document.querySelectorAll(`.control`);
             userButtons.forEach(button => {
                 button.disabled = false;
@@ -52,15 +52,15 @@ function login() {
                 button.classList.remove('disabled');
             });
             const invButtons = document.querySelectorAll('.inv');
-            invButtons.forEach(button => button.style.visibility = 'hidden');
+            invButtons.forEach(button => button.style.display = 'none');
         }
     }
 }
 
 function limpar(){
-    calls.textContent = 'Advertências:'
-    warnings.textContent = 'Chamados:'
-
+    calls.textContent = 'Chamados:'
+    warnings.textContent = 'Advertências:'
+    
     socket.emit('limparDados');
 }
 

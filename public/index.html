@@ -12,7 +12,7 @@
 <body>
     <!-- Área de Trabalho -->
     <div class="desktop">
-        <div class="icon" title="Controle de tarefas" onclick="openWindow();handleIconClick()">
+        <div class="icon" title="Controle de tarefas" onclick="handleIconClick()" ondblclick="openWindow();">
             <img src="Synaptia.png" alt="Synaptia Icon" />
             <span>Synaptia Control</span>
         </div>
@@ -22,6 +22,9 @@
     <div class="taskbar">
         <div id="taskbar-icon" class="taskbar-icon" onclick="toggleWindow()">
             <img src="Synaptia.png" alt="Synaptia Icon" />
+        </div>
+        <div class="context-menu">
+            <div onclick="closeWindow()">Fechar Programa</div>
         </div>
     </div>
 
@@ -66,10 +69,9 @@
                 <div class="alerts">
                     <div id="warnings">Advertências:</div> <br>
                     <div id="calls">Chamados:</div>
-                </div>
                 <button class="warn inv" onclick="limpar()">Clear</button>
+                </div>
 
-                <br><br>
                 <div class="grid">
                     <div class="grid-item" data-user="Alma">
                         <label>Alma</label>
@@ -154,6 +156,24 @@
     <script>
         let windowOpen = false;
         let windowMaximized = false;
+      
+        const contextMenu = document.querySelector(".context-menu");
+    const taskbarIcon = document.getElementById("taskbar-icon");
+
+    taskbarIcon.addEventListener("contextmenu", (event) => {
+        event.preventDefault(); 
+        const { clientX: mouseX, clientY: mouseY } = event;
+
+        contextMenu.style.top = `${mouseY - taskbarIcon.getBoundingClientRect().top - 10}px`;
+        contextMenu.style.left = `${mouseX}px`;
+        contextMenu.style.display = "block";
+
+        const closeContextMenu = (e) => {
+            contextMenu.style.display = "none";
+            document.removeEventListener("click", closeContextMenu);
+        };
+        document.addEventListener("click", closeContextMenu);
+    });
 
         function toggleWindow(){
             if(windowOpen){
@@ -189,10 +209,8 @@
             }
         }
         
-
-        // Fechar a janela
         function closeWindow() {
-            document.getElementById("window").style.display = "none";
+            document.getElementById("window").style = "display: none;position: absolute !important;"
             document.getElementById("taskbar-icon").style.display = "none";
             windowOpen = false;
         }
@@ -208,6 +226,46 @@
                 }
             }, { once: true });
         }
+
+    const windowElement = document.getElementById('window');
+    const windowHeader = document.querySelector('.window-header');
+
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    windowHeader.addEventListener('mousedown', (event) => {
+        isDragging = true;
+        offsetX = event.clientX - windowElement.getBoundingClientRect().left;
+        offsetY = event.clientY - windowElement.getBoundingClientRect().top;
+
+        document.addEventListener('mousemove', handleDrag);
+        document.addEventListener('mouseup', stopDrag);
+
+        windowElement.style.transition = 'none'; 
+        windowElement.style.transform = 'none'; 
+        windowElement.style.position = 'absolute'; 
+        document.body.style.userSelect = 'none';
+    });
+
+    function handleDrag(event) {
+        if (isDragging) {
+            const posX = event.clientX - offsetX;
+            const posY = event.clientY - offsetY;
+
+            windowElement.style.left = `${posX}px`;
+            windowElement.style.top = `${posY}px`;
+        }
+    }
+
+    function stopDrag() {
+        isDragging = false;
+        document.removeEventListener('mousemove', handleDrag);
+        document.removeEventListener('mouseup', stopDrag);
+
+        windowElement.style.transition = 'all 0.3s ease-in-out';
+        document.body.style.userSelect = '';
+    }
+
     </script>
 </body>
 </html>
