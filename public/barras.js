@@ -51,6 +51,8 @@ function login() {
                 button.disabled = false;
                 button.classList.remove('disabled');
             });
+            const invButtons = document.querySelectorAll('.inv');
+            invButtons.forEach(button => button.style.visibility = 'hidden');
         }
     }
 }
