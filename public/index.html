@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <title>Synaptia Control</title>
+</head>
+<body>
+    <!-- Área de Trabalho -->
+    <div class="desktop">
+        <div class="icon" onclick="openWindow()">
+            <img src="Synaptia.png" alt="Synaptia Icon" />
+            <span>Synaptia Control</span>
+        </div>
+    </div>
+
+    <!-- Barra Inferior -->
+    <div class="taskbar">
+        <div id="taskbar-icon" class="taskbar-icon" onclick="toggleWindow()">
+            <img src="Synaptia.png" alt="Synaptia Icon" />
+        </div>
+    </div>
+
+    <!-- Janela -->
+    <div class="window" id="window" style="display: none;">
+        <div class="window-header">
+            <div class="window-title">Synaptia Control</div>
+            <div class="window-controls">
+                <button class="minimize" onclick="minimizeWindow()">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button class="maximize" onclick="maximizeWindow()">
+                    <i>☐</i>
+                </button>
+                <button class="close" onclick="closeWindow()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="menu-bar">
+                <div>Menu</div>
+                <div>Relatórios</div>
+                <div id="sep">Escalas</div>
+                <div id="sep">Tarefas</div>
+                <div onclick="login()">Login</div>
+                <div>Cadastro</div>
+            </div>
+
+            <div class="conteudo">
+                <div class="progress-container">
+                    <label>Progresso T-02M-OUT/SM2</label>
+                    <div class="progress-bar" id="overall-bar">
+                        <div style="width: 0%;"></div>
+                    </div>
+                    <div class="buttons">
+                        <button class="add inv" onclick="updateInd(3.33)"></button>
+                        <button class="subtract inv" onclick="updateInd(-3.33)"></button>
+                    </div>
+                </div>
+
+                <div class="alerts">
+                    <div id="warnings">Advertências:</div>
+                    <div id="calls">Chamados:</div>
+                </div>
+
+                <div class="grid">
+                    <div class="grid-item" data-user="Alma">
+                        <label>Alma</label>
+                        <div class="progress-bar" id="bar-1">
+                            <div style="width: 0%;"></div>
+                        </div>
+                        <div class="buttons">
+                            <button class="add control" onclick="updateProgress(1, 20)"></button>
+                            <button class="subtract control" onclick="updateProgress(1, -20)"></button>
+                            <button class="warn inv" onclick="addWarning('Alma')"></button>
+                            <button class="call inv" onclick="addCall('Alma')"></button>
+                        </div>
+                    </div>
+                    <div class="grid-item" data-user="Lutie">
+                        <label>Lutie</label>
+                        <div class="progress-bar" id="bar-2">
+                            <div style="width: 0%;"></div>
+                        </div>
+                        <div class="buttons">
+                            <button class="add control" onclick="updateProgress(2, 20)"></button>
+                            <button class="subtract control" onclick="updateProgress(2, -20)"></button>
+                            <button class="warn inv" onclick="addWarning('Lutie')"></button>
+                            <button class="call inv" onclick="addCall('Lutie')"></button>
+                        </div>
+                    </div>
+                    <div class="grid-item" data-user="Mikka">
+                        <label>Mikka</label>
+                        <div class="progress-bar" id="bar-3">
+                            <div style="width: 0%;"></div>
+                        </div>
+                        <div class="buttons">
+                            <button class="add control" onclick="updateProgress(3, 20)"></button>
+                            <button class="subtract control" onclick="updateProgress(3, -20)"></button>
+                            <button class="warn inv" onclick="addWarning('Mikka')"></button>
+                            <button class="call inv" onclick="addCall('Mikka')"></button>
+                        </div>
+                    </div>
+                    <div class="grid-item" data-user="Lucas">
+                        <label>Lucas</label>
+                        <div class="progress-bar" id="bar-4">
+                            <div style="width: 0%;"></div>
+                        </div>
+                        <div class="buttons">
+                            <button class="add control" onclick="updateProgress(4, 20)"></button>
+                            <button class="subtract control" onclick="updateProgress(4, -20)"></button>
+                            <button class="warn inv" onclick="addWarning('Lucas')"></button>
+                            <button class="call inv" onclick="addCall('Lucas')"></button>
+                        </div>
+                    </div>
+                    <div class="grid-item" data-user="Marcos">
+                        <label>Marcos</label>
+                        <div class="progress-bar" id="bar-5">
+                            <div style="width: 0%;"></div>
+                        </div>
+                        <div class="buttons">
+                            <button class="add control" onclick="updateProgress(5, 20)"></button>
+                            <button class="subtract control" onclick="updateProgress(5, -20)"></button>
+                            <button class="warn inv" onclick="addWarning('Marcos')"></button>
+                            <button class="call inv" onclick="addCall('Marcos')"></button>
+                        </div>
+                    </div>
+                    <div class="grid-item" data-user="Heitor">
+                        <label>Heitor</label>
+                        <div class="progress-bar" id="bar-6">
+                            <div style="width: 0%;"></div>
+                        </div>
+                        <div class="buttons">
+                            <button class="add control" onclick="updateProgress(6, 20)"></button>
+                            <button class="subtract control" onclick="updateProgress(6, -20)"></button>
+                            <button class="warn inv" onclick="addWarning('Heitor')"></button>
+                            <button class="call inv" onclick="addCall('Heitor')"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="barras.js"></script>
+
+    <script>
+        let windowOpen = false;
+        let windowMaximized = false;
+
+        // Abre a janela
+        function openWindow() {
+            document.getElementById("window").style.display = "flex";
+            document.getElementById("taskbar-icon").style.display = "block";
+            windowOpen = true;
+        }
+
+        // Alterna a janela (minimizar/abrir)
+        function toggleWindow() {
+            if (windowOpen) {
+                document.getElementById("window").style.display = "flex";
+                windowOpen = false;
+            } else {
+                document.getElementById("window").style.display = "none";
+                windowOpen = true;
+            }
+        }
+
+        // Minimizar a janela
+        function minimizeWindow() {
+            document.getElementById("window").style.display = "none";
+            windowOpen = false;
+        }
+
+        function maximizeWindow() {
+            const windowElement = document.getElementById("window");
+        
+            if (windowMaximized) {
+                windowElement.classList.remove("maximized");
+                windowMaximized = false;
+            } else {
+                windowElement.classList.add("maximized");
+                windowMaximized = true;
+            }
+        }
+        
+
+        // Fechar a janela
+        function closeWindow() {
+            document.getElementById("window").style.display = "none";
+            document.getElementById("taskbar-icon").style.display = "none";
+            windowOpen = false;
+        }
+    </script>
+</body>
+</html>
