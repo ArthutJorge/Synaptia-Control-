@@ -13,6 +13,15 @@ window.onload = () => {
     });
 }
 
+let debounceTimeout;
+function debounceUpdateProgress(id, change) {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
+        updateProgress(id, change);
+    }, 400); 
+}
+
+
 function login() {
     const username = prompt("Digite o seu nome de usuário:");
     const password = prompt("Digite a sua senha:");
