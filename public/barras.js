@@ -13,12 +13,13 @@ window.onload = () => {
     });
 }
 
-let debounceTimeout;
+const cooldowns = {}; 
 function debounceUpdateProgress(id, change) {
-    clearTimeout(debounceTimeout);
-    debounceTimeout = setTimeout(() => {
-        updateProgress(id, change);
-    }, 400); 
+    const now = Date.now();
+    if (!cooldowns[id] || now - cooldowns[id] > 250) {
+        updateProgress(id, change); 
+        cooldowns[id] = now; 
+    }
 }
 
 
