@@ -16,7 +16,7 @@ window.onload = () => {
 const cooldowns = {}; 
 function debounceUpdateProgress(id, change) {
     const now = Date.now();
-    if (!cooldowns[id] || now - cooldowns[id] > 250) {
+    if (!cooldowns[id] || now - cooldowns[id] > 400) {
         updateProgress(id, change); 
         cooldowns[id] = now; 
     }
